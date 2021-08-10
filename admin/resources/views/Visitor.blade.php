@@ -16,12 +16,15 @@
         </tr>
       </thead>
       <tbody>
+        @foreach ($VisitorData as $item)
+
         <tr>
-          <th class="th-sm">01</th>
-          <th class="th-sm">127.0.0.1</th>
-          <th class="th-sm">2020-04-14 04:02:06am</th>
+            <td>{{ $item-> id }}</td>
+            <td>{{ $item-> ip_address }}</td>
+            <td>{{ $item-> Visit_time }}</td>
         </tr>
-        <tr>
+
+        @endforeach
       </tbody>
     </table>
 
