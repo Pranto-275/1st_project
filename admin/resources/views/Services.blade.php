@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div id="mainDiv" class="container d-none">
     <div class="row">
     <div class="col-md-12 p-5">
         <table id="serviceDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -24,6 +24,25 @@
     </div>
     </div>
 
+    <div id="loaderDiv" class="container">
+        <div class="row">
+            <div class="col-md-12 p-5 text-center">
+                <img class="loading-icon m-5" src="{{ asset('images/loader.svg') }}" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div id="WrongDiv" class="container d-none">
+        <div class="row">
+            <div class="col-md-12 p-5 text-center">
+                <h3>Something Went Wrong!!!!</h3>
+            </div>
+        </div>
+    </div>
+
+
+
+
 @endsection
 
 
@@ -34,24 +53,55 @@
 
     function getServiceData() {
 
+
+
+
 axios.get('/getServiceData')
     .then(function(response) {
-        var jsonData = response.data;
-        $.each(jsonData, function(i, item) {
 
-            $('<tr>').html(
-                "<td><img class='table-img' src=" + jsonData[i].service_img + "></td>" +
-                "<td>" + jsonData[i].service_name + "</td>" +
-                "<td>" + jsonData[i].service_des + "</td>" +
-                "<td><a  class='serviceEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
-                "<td><a  class='serviceDeleteBtn'  data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a></td>"
-            ).appendTo('#service_table');
 
-        });
+    if (response.status==200) {
+    var jsonData = response.data;
+     $.each(jsonData, function(i, item) {
+
+    $('#mainDiv').removeClass('d-none');
+                                    $('#loaderDiv').addClass('d-none');
+
+      $('<tr>').html(
+      "<td><img class='table-img' src=" + jsonData[i].service_img + "></td>" +
+      "<td>" + jsonData[i].service_name + "</td>" +
+       "<td>" + jsonData[i].service_des + "</td>" +
+        "<td><a  class='serviceEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
+      "<td><a  class='serviceDeleteBtn'  data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a></td>"
+       ).appendTo('#service_table');
+
+                });
+        }else{
+
+
+             $('#loaderDiv').addClass('d-none');
+             $('#WrongDiv').removeClass('d-none');
+
+
+        }
+
+
+
+
+
+
+
+
+
+
 
 
     })
-    .catch(function(error) {})
+    .catch(function(error) {
+             $('#loaderDiv').addClass('d-none');
+             $('#WrongDiv').removeClass('d-none');
+
+    })
 
 }
 </script>

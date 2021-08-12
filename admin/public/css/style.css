@@ -1,7 +1,13 @@
-.wrapper-padding{
-padding: 1% 1% 1% 1% ;
+.wrapper-padding {
+    padding: 1% 1% 1% 1%;
 }
-.table-img{
-	width:60px;
-	height:auto;
+
+.table-img {
+    width: 60px;
+    height: auto;
+}
+
+.loading-icon {
+    width: 100px;
+    height: auto;
 }
