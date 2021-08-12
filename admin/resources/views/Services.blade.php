@@ -42,6 +42,25 @@
 
 
 
+    <div
+  class="modal fade"  id="deleteModal"  tabindex="-1"  aria-labelledby="exampleModalLabel"  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body deleteModal p-3 text-center">
+          <h5 class="mt-4">Do You Wanna Delete??</h5>
+          <h5 id="serviceDeleteID" class="mt-4"></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+          No
+        </button>
+        <button data-id=" " id="serviceDeleteConfirmBtn" type="button" class="btn btn-sm btn-danger">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 @endsection
 
@@ -65,36 +84,32 @@ axios.get('/getServiceData')
      $.each(jsonData, function(i, item) {
 
     $('#mainDiv').removeClass('d-none');
-                                    $('#loaderDiv').addClass('d-none');
+    $('#loaderDiv').addClass('d-none');
 
       $('<tr>').html(
       "<td><img class='table-img' src=" + jsonData[i].service_img + "></td>" +
       "<td>" + jsonData[i].service_name + "</td>" +
        "<td>" + jsonData[i].service_des + "</td>" +
         "<td><a  class='serviceEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
-      "<td><a  class='serviceDeleteBtn'  data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a></td>"
+      "<td><a data-toggle='modal' data-target='#deleteModal'  class='serviceDeleteBtn'  data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a></td>"
        ).appendTo('#service_table');
 
                 });
+
+                $('.serviceDeleteBtn').click(function () {
+                   var id =  $(this).data('id')
+                    $('#serviceDeleteID').html(id);
+                    $('#serviceDeleteConfirmBtn').attr('data-id',id)
+                });
+
+
         }else{
 
 
              $('#loaderDiv').addClass('d-none');
              $('#WrongDiv').removeClass('d-none');
 
-
         }
-
-
-
-
-
-
-
-
-
-
-
 
     })
     .catch(function(error) {
@@ -104,5 +119,30 @@ axios.get('/getServiceData')
     })
 
 }
+
+
+    $('#serviceDeleteConfirmBtn').click(function () {
+        var id = $(this).data('id')
+        getSeviceDelete(id)
+    });
+
+
+
+function getSeviceDelete(deleteID){
+    axios.post('/ServiceDelete',{
+        id:deleteID
+    })
+    .then(function (response) {
+        if(response.data ==1){
+            alert('success')
+        }else{
+            alert('failed')
+        }
+    })
+    .catch(function (error) {
+    })
+}
+
+
 </script>
 @endsection
