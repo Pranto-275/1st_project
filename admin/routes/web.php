@@ -14,15 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@HomeIndex');
-
 Route::get('/visitor', 'VisitorController@VisitorIndex');
 
-
+//admin panel service management
 Route::get('/service', 'ServiceController@ServiceIndex');
-
-
 Route::get('/getServiceData', 'ServiceController@getServiceData');
-
-
-
 Route::post('/ServiceDelete', 'ServiceController@ServiceDelete');
+Route::post('/ServiceDetails', 'ServiceController@getServiceDetails');
+Route::post('/ServiceUpdate', 'ServiceController@ServiceUpdate');
