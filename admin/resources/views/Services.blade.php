@@ -171,11 +171,14 @@ $('#serviceDeleteConfirmBtn').click(function() {
 
 //service delete
 function SeviceDelete(deleteID) {
+
+    $('#serviceDeleteConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
+
     axios.post('/ServiceDelete', {
             id: deleteID
         })
         .then(function(response) {
-
+            $('#serviceDeleteConfirmBtn').html("Yes")
             if(response.status==200){
                 if (response.data == 1) {
                 $('#deleteModal').modal('hide')
@@ -245,8 +248,19 @@ $('#serviceEditConfirmBtn').click(function() {
     SeviceUpdate(id,name,des,img)
 });
 
-//each service update details
+//service update
 function SeviceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
+    $('#serviceDeleteConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
+ if (serviceName.length==0) {
+    toastr.error('Service Name is Empty!');
+    }else if (serviceDes.length==0) {
+        toastr.error('Service Description is Empty!');
+
+}else if (serviceImg.length==0) {
+    toastr.error('Service Image is Empty!');
+
+}else{
+
     axios.post('/ServiceUpdate', {
             id: serviceID,
             name:serviceName,
@@ -255,26 +269,34 @@ function SeviceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
         })
         .then(function(response) {
 
-            alert(serviceName)
+            if(response.status ==200){
+                if (response.data ==1) {
 
-            // if(response.status==200){
-            //     $('#serviceEditForm').removeClass('d-none')
-            //     $('#serviceEditLoader').addClass('d-none')
+$('#editModal').modal('hide')
+toastr.success('Update Success');
+getServiceData();
 
-            //     var jsonData = response.data;
+}else{
+$('#editModal').modal('hide')
+toastr.success('Update failed');
+getServiceData();
 
-            // }else{
-            //     $('#serviceEditLoader').addClass('d-none')
-            //     $('#serviceEditWrong').removeClass('d-none')
-            // }
-
+}
+            }else{
+                $('#editModal').modal('hide')
+                toastr.error('Something went Wrong!!');
+            }
 
         })
         .catch(function(error) {
-                // $('#serviceEditLoader').addClass('d-none')
-                // $('#serviceEditWrong').removeClass('d-none')
+            $('#editModal').modal('hide')
+                toastr.error('Something went Wrong!!');
 
         })
+
+}
+
+
 }
 
 
