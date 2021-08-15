@@ -5,6 +5,9 @@
 <div id="mainDiv" class="container d-none">
     <div class="row">
     <div class="col-md-12 p-5">
+
+        <button id="addNewBtnId" class="btn btn-sm my-3 btn-danger">Add New</button>
+
         <table id="serviceDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
               <tr>
@@ -91,6 +94,33 @@
   </div>
 
 
+
+  <!-- Add New modal -->
+
+<div class="modal fade"  id="addModal"  tabindex="-1"  aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body  p-3 text-center">
+
+
+        <div id="serviceAddForm"  class="w-100">
+            <h6 class="mb-4">Add New Service</h6>
+         <input id="serviceNameAddID" type="text" class="form-control mb-4" placeholder="Service Name">
+         <input id="serviceDesAddID" type="text" class="form-control mb-4" placeholder="Service Desciption">
+         <input id="serviceImgAddID" type="text" class="form-control mb-4" placeholder="Service Image Link">
+        </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">
+            Cancel
+          </button>
+          <button  id="serviceAddConfirmBtn" type="button" class="btn btn-sm btn-danger">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
 
 
@@ -165,12 +195,12 @@ function getServiceData() {
 //service modal yes button
 $('#serviceDeleteConfirmBtn').click(function() {
     var id = $('#serviceDeleteID').html();
-    SeviceDelete(id)
+    ServiceDelete(id)
 });
 
 
 //service delete
-function SeviceDelete(deleteID) {
+function ServiceDelete(deleteID) {
 
     $('#serviceDeleteConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
 
@@ -250,7 +280,7 @@ $('#serviceEditConfirmBtn').click(function() {
 
 //service update
 function SeviceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
-    $('#serviceDeleteConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
+    $('#serviceEditConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
  if (serviceName.length==0) {
     toastr.error('Service Name is Empty!');
     }else if (serviceDes.length==0) {
@@ -268,7 +298,7 @@ function SeviceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
             img:serviceImg
         })
         .then(function(response) {
-
+            $('#serviceEditConfirmBtn').html("Save")
             if(response.status ==200){
                 if (response.data ==1) {
 
@@ -300,6 +330,79 @@ getServiceData();
 }
 
 
+
+//add new  button btn clic
+
+$('#addNewBtnId').click(function () {
+    $('#addModal').modal('show')
+
+});
+
+
+
+//service add modal save button
+$('#serviceAddConfirmBtn').click(function() {
+
+    var name = $('#serviceNameAddID').val();
+    var des = $('#serviceDesAddID').val();
+    var img = $('#serviceImgAddID').val();
+
+    SeviceAdd(name,des,img)
+});
+
+//service add method
+
+
+function SeviceAdd(serviceName,serviceDes,serviceImg) {
+
+ if (serviceName.length==0) {
+    toastr.error('Service Name is Empty!');
+    }else if (serviceDes.length==0) {
+        toastr.error('Service Description is Empty!');
+
+}else if (serviceImg.length==0) {
+    toastr.error('Service Image is Empty!');
+
+}else{
+
+    $('#serviceAddConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
+
+    axios.post('/ServiceAdd', {
+            name:serviceName,
+            des:serviceDes,
+            img:serviceImg
+        })
+        .then(function(response) {
+            $('#serviceAddConfirmBtn').html("Save")
+            if(response.status ==200){
+                if (response.data ==1) {
+
+            $('#addModal').modal('hide')
+                toastr.success('Add Success');
+                    getServiceData();
+
+            }else{
+            $('#addModal').modal('hide')
+                toastr.success('Add failed');
+                    getServiceData();
+
+                }
+            }else{
+                $('#addModal').modal('hide')
+                toastr.error('Something went Wrong!!');
+            }
+
+        })
+        .catch(function(error) {
+            $('#addModal').modal('hide')
+                toastr.error('Something went Wrong!!');
+
+        })
+
+}
+
+
+}
 
 
 
