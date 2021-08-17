@@ -127,6 +127,7 @@
 @section('script')
 <script type="text/javascript">
 
+
 getServiceData();
 
 
@@ -209,20 +210,20 @@ function ServiceDelete(deleteID) {
         })
         .then(function(response) {
             $('#serviceDeleteConfirmBtn').html("Yes")
-            if(response.status==200){
+            if (response.status == 200) {
                 if (response.data == 1) {
-                $('#deleteModal').modal('hide')
-                toastr.success('Delete Success');
-                getServiceData();
+                    $('#deleteModal').modal('hide')
+                    toastr.success('Delete Success');
+                    getServiceData();
 
+                } else {
+                    $('#deleteModal').modal('hide')
+                    toastr.error('Delete failed');
+                    getServiceData();
+                }
             } else {
-                $('#deleteModal').modal('hide')
-                toastr.error('Delete failed');
-                getServiceData();
-            }
-            }else{
                 $('#deleteModal').modal('hide');
-             toastr.error('Something Went Wrong !');
+                toastr.error('Something Went Wrong !');
 
             }
 
@@ -232,7 +233,7 @@ function ServiceDelete(deleteID) {
         })
         .catch(function(error) {
             $('#deleteModal').modal('hide');
-             toastr.error('Something Went Wrong !');
+            toastr.error('Something Went Wrong !');
         })
 }
 
@@ -244,7 +245,7 @@ function SeviceUpdateDetails(detailsID) {
         })
         .then(function(response) {
 
-            if(response.status==200){
+            if (response.status == 200) {
                 $('#serviceEditForm').removeClass('d-none')
                 $('#serviceEditLoader').addClass('d-none')
 
@@ -252,7 +253,7 @@ function SeviceUpdateDetails(detailsID) {
                 $('#serviceNameID').val(jsonData[0].service_name)
                 $('#serviceDesID').val(jsonData[0].service_des)
                 $('#serviceImgID').val(jsonData[0].service_img)
-            }else{
+            } else {
                 $('#serviceEditLoader').addClass('d-none')
                 $('#serviceEditWrong').removeClass('d-none')
             }
@@ -260,8 +261,8 @@ function SeviceUpdateDetails(detailsID) {
 
         })
         .catch(function(error) {
-                $('#serviceEditLoader').addClass('d-none')
-                $('#serviceEditWrong').removeClass('d-none')
+            $('#serviceEditLoader').addClass('d-none')
+            $('#serviceEditWrong').removeClass('d-none')
 
         })
 }
@@ -275,56 +276,56 @@ $('#serviceEditConfirmBtn').click(function() {
     var des = $('#serviceDesID').val();
     var img = $('#serviceImgID').val();
 
-    SeviceUpdate(id,name,des,img)
+    SeviceUpdate(id, name, des, img)
 });
 
 //service update
-function SeviceUpdate(serviceID,serviceName,serviceDes,serviceImg) {
+function SeviceUpdate(serviceID, serviceName, serviceDes, serviceImg) {
     $('#serviceEditConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
- if (serviceName.length==0) {
-    toastr.error('Service Name is Empty!');
-    }else if (serviceDes.length==0) {
+    if (serviceName.length == 0) {
+        toastr.error('Service Name is Empty!');
+    } else if (serviceDes.length == 0) {
         toastr.error('Service Description is Empty!');
 
-}else if (serviceImg.length==0) {
-    toastr.error('Service Image is Empty!');
+    } else if (serviceImg.length == 0) {
+        toastr.error('Service Image is Empty!');
 
-}else{
+    } else {
 
-    axios.post('/ServiceUpdate', {
-            id: serviceID,
-            name:serviceName,
-            des:serviceDes,
-            img:serviceImg
-        })
-        .then(function(response) {
-            $('#serviceEditConfirmBtn').html("Save")
-            if(response.status ==200){
-                if (response.data ==1) {
+        axios.post('/ServiceUpdate', {
+                id: serviceID,
+                name: serviceName,
+                des: serviceDes,
+                img: serviceImg
+            })
+            .then(function(response) {
+                $('#serviceEditConfirmBtn').html("Save")
+                if (response.status == 200) {
+                    if (response.data == 1) {
 
-$('#editModal').modal('hide')
-toastr.success('Update Success');
-getServiceData();
+                        $('#editModal').modal('hide')
+                        toastr.success('Update Success');
+                        getServiceData();
 
-}else{
-$('#editModal').modal('hide')
-toastr.success('Update failed');
-getServiceData();
+                    } else {
+                        $('#editModal').modal('hide')
+                        toastr.success('Update failed');
+                        getServiceData();
 
-}
-            }else{
+                    }
+                } else {
+                    $('#editModal').modal('hide')
+                    toastr.error('Something went Wrong!!');
+                }
+
+            })
+            .catch(function(error) {
                 $('#editModal').modal('hide')
                 toastr.error('Something went Wrong!!');
-            }
 
-        })
-        .catch(function(error) {
-            $('#editModal').modal('hide')
-                toastr.error('Something went Wrong!!');
+            })
 
-        })
-
-}
+    }
 
 
 }
@@ -333,7 +334,7 @@ getServiceData();
 
 //add new  button btn clic
 
-$('#addNewBtnId').click(function () {
+$('#addNewBtnId').click(function() {
     $('#addModal').modal('show')
 
 });
@@ -347,65 +348,62 @@ $('#serviceAddConfirmBtn').click(function() {
     var des = $('#serviceDesAddID').val();
     var img = $('#serviceImgAddID').val();
 
-    SeviceAdd(name,des,img)
+    SeviceAdd(name, des, img)
 });
 
 //service add method
 
 
-function SeviceAdd(serviceName,serviceDes,serviceImg) {
+function SeviceAdd(serviceName, serviceDes, serviceImg) {
 
- if (serviceName.length==0) {
-    toastr.error('Service Name is Empty!');
-    }else if (serviceDes.length==0) {
+    if (serviceName.length == 0) {
+        toastr.error('Service Name is Empty!');
+    } else if (serviceDes.length == 0) {
         toastr.error('Service Description is Empty!');
 
-}else if (serviceImg.length==0) {
-    toastr.error('Service Image is Empty!');
+    } else if (serviceImg.length == 0) {
+        toastr.error('Service Image is Empty!');
 
-}else{
+    } else {
 
-    $('#serviceAddConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
+        $('#serviceAddConfirmBtn').html("<div class='spinner-border spinner-border-sm' role='status'></div>")
 
-    axios.post('/ServiceAdd', {
-            name:serviceName,
-            des:serviceDes,
-            img:serviceImg
-        })
-        .then(function(response) {
-            $('#serviceAddConfirmBtn').html("Save")
-            if(response.status ==200){
-                if (response.data ==1) {
+        axios.post('/ServiceAdd', {
+                name: serviceName,
+                des: serviceDes,
+                img: serviceImg
+            })
+            .then(function(response) {
+                $('#serviceAddConfirmBtn').html("Save")
+                if (response.status == 200) {
+                    if (response.data == 1) {
 
-            $('#addModal').modal('hide')
-                toastr.success('Add Success');
-                    getServiceData();
+                        $('#addModal').modal('hide')
+                        toastr.success('Add Success');
+                        getServiceData();
 
-            }else{
-            $('#addModal').modal('hide')
-                toastr.success('Add failed');
-                    getServiceData();
+                    } else {
+                        $('#addModal').modal('hide')
+                        toastr.success('Add failed');
+                        getServiceData();
 
+                    }
+                } else {
+                    $('#addModal').modal('hide')
+                    toastr.error('Something went Wrong!!');
                 }
-            }else{
+
+            })
+            .catch(function(error) {
                 $('#addModal').modal('hide')
                 toastr.error('Something went Wrong!!');
-            }
 
-        })
-        .catch(function(error) {
-            $('#addModal').modal('hide')
-                toastr.error('Something went Wrong!!');
+            })
 
-        })
-
-}
+    }
 
 
 }
-
-
-
 
 </script>
 @endsection
