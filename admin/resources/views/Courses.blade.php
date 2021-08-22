@@ -20,18 +20,6 @@
       </thead>
       <tbody id="course_table">
 
-        <tr>
-          {{-- <th class="th-sm"><img class="table-img" src="images/Knowledge.svg"></th> --}}
-          <th class="th-sm">Name</th>
-          <th class="th-sm">2000</th>
-          <th class="th-sm">200</th>
-          <th class="th-sm">200</th>
-          <th class="th-sm"><a href="" ><i class="fas fa-eye"></i></a></th>
-          <th class="th-sm"><a href="" ><i class="fas fa-edit"></i></a></th>
-          <th class="th-sm"><a href="" ><i class="fas fa-trash-alt"></i></a></th>
-        </tr>
-
-
 
 
       </tbody>
@@ -71,9 +59,8 @@ function getCoursesData() {
 
 
             if (response.status == 200) {
-                $('#mainDiv').removeClass('d-none');
+                $('#manDivCourse').removeClass('d-none');
                 $('#loaderDivCourse').addClass('d-none');
-
                 $('#course_table').empty();
 
 
@@ -82,45 +69,53 @@ function getCoursesData() {
                 var jsonData = response.data;
                 $.each(jsonData, function(i, item) {
                     $('<tr>').html(
-                        "<td><img class='table-img' src=" + jsonData[i].service_img + "></td>" +
-                        "<td>" + jsonData[i].service_name + "</td>" +
-                        "<td>" + jsonData[i].service_des + "</td>" +
-                        "<td><a  class='serviceEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
-                        "<td><a data-toggle='modal' data-target='#deleteModal'  class='serviceDeleteBtn'  data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a></td>"
-                    ).appendTo('#service_table');
+                        "<td>"+ jsonData[i].course_name +"</td>" +
+
+                        "<td>" + jsonData[i].course_fee + "</td>" +
+
+                        "<td>" + jsonData[i].course_coursetotalclass + "</td>" +
+
+                        "<td>" + jsonData[i].course_totalenroll + "</td>" +
+
+                        "<td><a  class='courseViewDetailsBtn' data-id=" + jsonData[i].id + "><i class='fas fa-eye'></i></a></td>" +
+
+                        "<td><a  class='courseEditBtn' data-id=" + jsonData[i].id + "><i class='fas fa-edit'></i></a></td>" +
+
+                        "<td><a data-toggle='modal' data-target='#deleteModal'  class='courseDeleteBtn'  data-id=" + jsonData[i].id + " ><i class='fas fa-trash-alt'></i></a></td>"
+                    ).appendTo('#course_table');
 
                 });
 
-                //services table delete iconclick
-                $('.serviceDeleteBtn').click(function() {
-                    var id = $(this).data('id')
-                    $('#serviceDeleteID').html(id);
+                // //services table delete iconclick
+                // $('.serviceDeleteBtn').click(function() {
+                //     var id = $(this).data('id')
+                //     $('#serviceDeleteID').html(id);
 
-                });
+                // });
 
-                //service table edit iconclick
-                $('.serviceEditBtn').click(function() {
-                    var id = $(this).data('id')
-                    $('#serviceEditID').html(id);
-                    SeviceUpdateDetails(id)
-                    $('#editModal').modal('show')
+                // //service table edit iconclick
+                // $('.serviceEditBtn').click(function() {
+                //     var id = $(this).data('id')
+                //     $('#serviceEditID').html(id);
+                //     SeviceUpdateDetails(id)
+                //     $('#editModal').modal('show')
 
-                });
+                // });
 
 
 
             } else {
 
 
-                $('#loaderDiv').addClass('d-none');
+                $('#loaderDivCourse').addClass('d-none');
                 $('#WrongDivCourse').removeClass('d-none');
 
             }
 
         })
         .catch(function(error) {
-            $('#loaderDiv').addClass('d-none');
-            $('#WrongDiv').removeClass('d-none');
+            $('#loaderDivCourse').addClass('d-none');
+            $('#WrongDivCourse').removeClass('d-none');
 
         })
 
