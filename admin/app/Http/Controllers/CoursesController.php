@@ -92,7 +92,7 @@ class CoursesController extends Controller
             'course_des' => $course_des,
             'course_fee' => $course_fee,
             'course_totalenroll' => $course_totalenroll,
-            'course_totalclass' => $course_totalclass,
+            'course_coursetotalclass' => $course_totalclass,
             'course_link' => $course_link,
             'course_img' => $course_img,
         ]);
