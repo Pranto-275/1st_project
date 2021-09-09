@@ -141,6 +141,7 @@ function getServiceData() {
                 $('#mainDiv').removeClass('d-none');
                 $('#loaderDiv').addClass('d-none');
 
+                $('#serviceDataTable').DataTable().destroy();
                 $('#service_table').empty();
 
 
@@ -173,6 +174,12 @@ function getServiceData() {
                     $('#editModal').modal('show')
 
                 });
+
+
+
+                $('#serviceDataTable').DataTable();
+                $('.dataTables_length').addClass('bs-select');
+
 
 
 

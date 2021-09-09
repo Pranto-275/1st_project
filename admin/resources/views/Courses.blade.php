@@ -9,7 +9,7 @@
 
         <button id="addNewCourseBtnId" class="btn btn-sm my-3 btn-danger">Add New</button>
 
-    <table id="" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <table id="courseDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th class="th-sm">Name</th>
@@ -115,10 +115,12 @@
           </button>
         </div>
         <div class="modal-body  text-center">
-            <h5 id="courseUpdateId"></h5>
+
+            <div id="courseEditId" class="mt-4"></div>
          <div id="courseEditForm" class="container d-none">
              <div class="row">
                  <div class="col-md-6">
+
                    <input id="CourseNameUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Name">
                      <input id="CourseDesUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Description">
                    <input id="CourseFeeUpdateId" type="text" id="" class="form-control mb-3" placeholder="Course Fee">
@@ -163,6 +165,8 @@ function getCoursesData() {
             if (response.status == 200) {
                 $('#manDivCourse').removeClass('d-none');
                 $('#loaderDivCourse').addClass('d-none');
+
+                $('#courseDataTable').DataTable().destroy()
                 $('#course_table').empty();
 
 
@@ -204,6 +208,10 @@ function getCoursesData() {
 
                 });
 
+
+
+                $('#courseDataTable').DataTable()
+                $('.dataTables_length').addClass('bs-select');
 
 
             } else {
@@ -409,7 +417,7 @@ function CourseDelete(deleteID) {
 
     //course update modal save button
 $('#CourseUpdateConfirmBtn').click(function() {
-    var courseID = $('#courseUpdateId').html();
+    var courseID = $('#courseEditId').html();
     var courseName = $('#CourseNameUpdateId').val();
     var courseDes = $('#CourseDesUpdateId').val();
     var courseFee = $('#CourseFeeUpdateId').val();
@@ -466,14 +474,14 @@ function CourseUpdate(courseID, courseName, courseDes, courseFee,courseEnroll,co
                 if (response.status == 200) {
                     if (response.data == 1) {
 
-
                         $('#UpdateCourseModal').modal('hide')
                         toastr.success('Update Success');
                         getCoursesData();
 
                     } else {
+                        alert("error")
                         $('#UpdateCourseModal').modal('hide')
-                        toastr.success('Update failed');
+                        toastr.error('Update failed');
                         getCoursesData();
 
                     }
@@ -492,7 +500,6 @@ function CourseUpdate(courseID, courseName, courseDes, courseFee,courseEnroll,co
             })
 
     }
-
 
 }
 
