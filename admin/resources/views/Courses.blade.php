@@ -210,7 +210,7 @@ function getCoursesData() {
 
 
 
-                $('#courseDataTable').DataTable()
+                $('#courseDataTable').DataTable({"order":false})
                 $('.dataTables_length').addClass('bs-select');
 
 

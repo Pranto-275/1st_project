@@ -15,7 +15,7 @@ class ServiceController extends Controller
 
     public function getServiceData()
     {
-        $result = json_encode(ServiceModel::all());
+        $result = json_encode(ServiceModel::orderBy('id', 'desc')->get());
         return $result;
     }
 

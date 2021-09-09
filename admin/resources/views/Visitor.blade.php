@@ -39,7 +39,7 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
-    $('#VisitorDt').DataTable();
+    $('#VisitorDt').DataTable({"order":false});
     $('.dataTables_length').addClass('bs-select');
 });
     </script>

@@ -177,7 +177,7 @@ function getServiceData() {
 
 
 
-                $('#serviceDataTable').DataTable();
+                $('#serviceDataTable').DataTable({"order":false});
                 $('.dataTables_length').addClass('bs-select');
 
 
