@@ -15,15 +15,11 @@
             <li class="nav-item">
                 <a class="nav-link nav-font" href="projects.html">প্রোজেক্ট </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link nav-font" href="blog.html">ব্লগ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-font" href="#">যোগাযোগ</a>
+                <a class="nav-link nav-font" href="#contact">যোগাযোগ</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <button class="normal-btn btn" >সাইন ইন</button>
-        </form>
+
     </div>
 </nav>

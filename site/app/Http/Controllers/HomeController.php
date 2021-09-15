@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ContactModel;
 use App\CourseModel;
 use App\ProjectsModel;
+use App\ReviewModel;
 use App\ServiceModel;
 use App\VisitorModel;
 
@@ -25,11 +26,13 @@ class HomeController extends Controller
 
         $ProjectData = json_decode(ProjectsModel::orderBy('id', 'desc')->limit(10)->get());
 
+        $ReviewData = json_decode(ReviewModel::all());
 
         return view('Home', [
             'ServicesData' => $ServicesData,
             'CoursesData' => $CoursesData,
-            'ProjectData' => $ProjectData
+            'ProjectData' => $ProjectData,
+            'ReviewData' => $ReviewData
         ]);
     }
 

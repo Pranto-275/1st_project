@@ -7,5 +7,7 @@
 @include('Component.HomeCourse')
 @include('Component.HomeProject')
 @include('Component.Contact')
+@include('Component.HomeReview')
+
 
 @endsection
