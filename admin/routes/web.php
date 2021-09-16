@@ -13,29 +13,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@HomeIndex');
-Route::get('/visitor', 'VisitorController@VisitorIndex');
+Route::get('/', 'HomeController@HomeIndex')->middleware('logincheck');
+Route::get('/visitor', 'VisitorController@VisitorIndex')->middleware('logincheck');
 
 //admin panel service management
-Route::get('/service', 'ServiceController@ServiceIndex');
-Route::get('/getServiceData', 'ServiceController@getServiceData');
-Route::post('/ServiceDelete', 'ServiceController@ServiceDelete');
-Route::post('/ServiceDetails', 'ServiceController@getServiceDetails');
-Route::post('/ServiceUpdate', 'ServiceController@ServiceUpdate');
-Route::post('/ServiceAdd', 'ServiceController@ServiceAdd');
+Route::get('/service', 'ServiceController@ServiceIndex')->middleware('logincheck');
+Route::get('/getServiceData', 'ServiceController@getServiceData')->middleware('logincheck');
+Route::post('/ServiceDelete', 'ServiceController@ServiceDelete')->middleware('logincheck');
+Route::post('/ServiceDetails', 'ServiceController@getServiceDetails')->middleware('logincheck');
+Route::post('/ServiceUpdate', 'ServiceController@ServiceUpdate')->middleware('logincheck');
+Route::post('/ServiceAdd', 'ServiceController@ServiceAdd')->middleware('logincheck');
 
 
 
 //admin panel Courses management
-Route::get('/courses', 'CoursesController@CoursesIndex');
-Route::get('/getCoursesData', 'CoursesController@getCourseData');
-Route::post('/CoursesDelete', 'CoursesController@CoursesDelete');
-Route::post('/CoursesDetails', 'CoursesController@getCoursesDetails');
-Route::post('/CoursesUpdate', 'CoursesController@CoursesUpdate');
-Route::post('/CoursesAdd', 'CoursesController@CoursesAdd');
+Route::get('/courses', 'CoursesController@CoursesIndex')->middleware('logincheck');
+Route::get('/getCoursesData', 'CoursesController@getCourseData')->middleware('logincheck');
+Route::post('/CoursesDelete', 'CoursesController@CoursesDelete')->middleware('logincheck');
+Route::post('/CoursesDetails', 'CoursesController@getCoursesDetails')->middleware('logincheck');
+Route::post('/CoursesUpdate', 'CoursesController@CoursesUpdate')->middleware('logincheck');
+Route::post('/CoursesAdd', 'CoursesController@CoursesAdd')->middleware('logincheck');
 
 
 //login
 
 Route::get('/Login', 'loginController@loginFunction');
 Route::post('/onLogin', 'loginController@onLogin');
+
+
+//logout
+
+Route::get('/Logout', 'loginController@onLogout');
