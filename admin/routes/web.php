@@ -33,3 +33,9 @@ Route::post('/CoursesDelete', 'CoursesController@CoursesDelete');
 Route::post('/CoursesDetails', 'CoursesController@getCoursesDetails');
 Route::post('/CoursesUpdate', 'CoursesController@CoursesUpdate');
 Route::post('/CoursesAdd', 'CoursesController@CoursesAdd');
+
+
+//login
+
+Route::get('/Login', 'loginController@loginFunction');
+Route::post('/onLogin', 'loginController@onLogin');
