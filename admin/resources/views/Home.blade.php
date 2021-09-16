@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ $totalservice }}</h5>
-                    <p class="card-text">Course</p>
+                    <p class="card-text">Service</p>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ $totalvisitor }}</h5>
-                    <p class="card-text">Course</p>
+                    <p class="card-text">Visitor</p>
                 </div>
             </div>
         </div>
